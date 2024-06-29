@@ -34,3 +34,4 @@ Bash script that creates a simple Makefile with the following rules:
 
 # Preview
 ![Script execution executed](RdMeImg/Example.png)
+![Resulting Makefile](RdMeImg/Ending_Makefile.png)
