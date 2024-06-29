@@ -24,7 +24,7 @@ alias makefile="$HOME/address"
 source ~/.bashrc
 ```
 
--> Now whenever you type "makefile" in your terminal, the script is going to be executed
+-> Now, whenever you type "makefile" in your terminal, the script is going to be executed
 
 # Description
 Bash script that creates a simple Makefile with the following rules:
