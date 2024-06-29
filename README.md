@@ -12,7 +12,6 @@ $ emacs ~/.bashrc
 ```
 2. Go to the end of the file and create the alias
 ```
-~/.bashrc
 alias makefile="$HOME/address"
 ```
 -> makefile: name of the alias
@@ -34,4 +33,5 @@ Bash script that creates a simple Makefile with the following rules:
 
 # Preview
 ![Script execution executed](RdMeImg/Example.png)
+
 ![Resulting Makefile](RdMeImg/Ending_Makefile.png)
