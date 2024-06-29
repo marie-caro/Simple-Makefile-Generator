@@ -1,0 +1,80 @@
+#!/bin/bash
+
+touch Makefile
+
+# Getting basic info --------------------------------------------------------
+read -p "projet name: " project_name
+read -p "year: " year
+
+# Write the epi header ------------------------------------------------------
+echo -e "\
+##\n\
+## EPITECH PROJECT, $year\n\
+## $project_name\n\
+## File description:\n\
+## none\n\
+##" >> Makefile
+
+# --------------------------------------------------------------------------
+echo -e "\nSRC =	src/main.c" >> Makefile
+echo -e 'OBJ = $(SRC:.c=.o)' >> Makefile
+read -p "what compiler do you want to use? [gcc || g++]: " compiler
+echo -e "CC = $compiler\n" >> Makefile
+
+# BINARIES ------------------------------------------------------------------
+echo "## Binaries" >> Makefile
+read -p "project's binary name: " project_bin
+echo "BIN =	$project_bin" >> Makefile
+
+# LIB ? ---------------------------------------------------------------------
+read -p "do you want to use your lib? [y/n]: " lib_answer
+
+if [ "$lib_answer" = "y" ]; then
+    read -p "lib binary name: " lib_bin
+    echo -e "LIB_BIN =	$lib_bin\n" >> Makefile
+    echo "## Flags" >> Makefile
+    echo "LDFLAGS = -I./include -L lib/my/ -lmy" >> Makefile
+else
+    echo -e "\n## Flags" >> Makefile
+  lib_answer="n"
+fi
+
+# FLAGS ---------------------------------------------------------------------
+echo -e "CFLAGS = -Wall -Werror -Wextra" >> Makefile
+
+# RULES: --------------------------------------------------------------------
+echo -e "\n## RULES:" >> Makefile
+if [ "$lib_answer" = "y" ]; then
+    echo -e 'all:	$(LIB_BIN) $(BIN)' >> Makefile
+    echo -e '$(LIB_BIN):
+    $(MAKE) -C lib/my/' >> Makefile
+    echo -e '$(BIN): $(OBJ)
+	$(CC) -g3 -o $(BIN) $(SRC) $(LDFLAGS)' >> Makefile
+else
+    echo 'all: $(BIN)' >> Makefile
+    echo -e '$(BIN): $(OBJ)
+	$(CC) -g3 -o $(BIN) $(SRC)' >> Makefile
+fi
+
+echo -e 'clean:
+	rm -f $(OBJ)' >> Makefile
+
+if [ "$lib_answer" = "y" ]; then
+    echo -e 'fclean: clean
+        $(MAKE) fclean -C lib/my/
+        $(RM) lib/libmy.a lib/my/libmy.a
+        clear' >> Makefile
+else
+    echo -e 'fclean: clean
+        clear' >> Makefile
+fi
+
+read -p "want to add a 'coding style' rule? [y/n]: " coding_answer
+
+if [ "$coding_answer" = "y" ]; then
+    echo -e "coding:
+	coding-style . . && cat coding-style-reports.log" >> Makefile
+fi
+
+echo "re: fclean all" >> Makefile
+echo -e "\n.PHONY:	all clean fclean re" >> Makefile
