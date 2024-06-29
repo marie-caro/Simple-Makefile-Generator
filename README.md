@@ -15,7 +15,10 @@ $ emacs ~/.bashrc
 alias makefile="$HOME/address"
 ```
 -> makefile: name of the alias
+
 -> "$HOME/address": absolute path of the script (where you stored it in your computer)
+
+
 3. Save it and enter the following command in your terminal
 ```
 source ~/.bashrc
